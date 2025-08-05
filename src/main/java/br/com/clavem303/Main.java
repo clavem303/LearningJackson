@@ -2,7 +2,9 @@ package br.com.clavem303;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class Main {
 
         /* Create the object (jackson-databind extension) responsible for mapping the string or object.*/
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); //Register module to work with date.
 
         /* Deserializing --------------------------------------------------------*/
 
@@ -21,7 +24,8 @@ public class Main {
                     "last_name": "Crockford",
                     "email": "DOUGLAS.CROCKFORD@JSON.COM",
                     "password": "491637",
-                    "hobbies": ["read", "swim", "fish"]
+                    "hobbies": ["read", "swim", "fish"],
+                    "created":"10/08/2025 20:51:07"
                 }
                 """;
 
@@ -45,7 +49,8 @@ public class Main {
                 "Saloranta",
                 "TATU.SALORANTA@FASTERXML.COM",
                 "619473",
-                tatuSalorantaHobbies);
+                tatuSalorantaHobbies,
+                Instant.now());
 
         /* 2 - Call the method responsible for converting the java object into a json string. */
         try {

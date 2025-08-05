@@ -2,6 +2,7 @@ package br.com.clavem303;
 
 import com.fasterxml.jackson.annotation.*;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +20,21 @@ public class User {
     @JsonInclude(JsonInclude.Include.NON_EMPTY) // Don't show if empty.
     private List<String> hobbies = new ArrayList<>();
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
+    private Instant created;
+
     @JsonCreator
     public User(
             @JsonProperty("name") String name,
             @JsonProperty("last_name") String lastName,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
-            @JsonProperty("hobbies")  List<String> hobbies
+            @JsonProperty("hobbies")  List<String> hobbies,
+            @JsonProperty("created")  Instant created
     ) {
         validate(name, lastName, email, password);
         this.hobbies = hobbies;
+        this.created = created;
     }
 
     private void validate(String name, String lastName, String email, String password) {
@@ -61,7 +67,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + maskPassword(password) + '\'' +
-                ", hobbies=" + hobbies +
+                ", hobbies=" + hobbies + '\'' +
+                ", created=" + created +
                 '}';
     }
 
