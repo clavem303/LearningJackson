@@ -21,7 +21,7 @@ public class User {
     private List<String> hobbies = new ArrayList<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
-    private Instant created;
+    private final Instant created;
 
     @JsonCreator
     public User(
@@ -42,22 +42,6 @@ public class User {
         this.lastName = lastName.trim().toUpperCase();
         this.email = email.trim().toLowerCase();
         this.password = password.trim();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public List<String> getHobbies() {
-        return hobbies;
     }
 
     @Override
